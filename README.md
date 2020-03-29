@@ -3,7 +3,7 @@
 Test
 
 ### Install
-npm install
-npm run dev 
-    or 
+npm install<br>
+npm run dev <br>
+    or <br>
 npm start
