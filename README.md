@@ -4,4 +4,6 @@ Test
 
 ### Install
 npm install
-npm run dev or npm start
+npm run dev 
+    or 
+npm start
