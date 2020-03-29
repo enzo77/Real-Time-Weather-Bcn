@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>RealTime Temperature WebSocket</title>
+</head>
+
+<body>
+    <h1>Barcelona City</h1>
+    <canvas id="chart" width="300" height="150"></canvas>
+    <script type="text/javascript " src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script type="text/javascript">
+        const socket = io.connect()
+        const ctx = document.getElementById('chart').getContext('2d')
+        const data = {
+            labels: [0],
+            datasets: [{
+                data: [0],
+                label: 'Barcelona Temperature °C',
+                backgroundColor: '#00BFFF',
+                borderColor : "#1E90FF"
+            }]
+        }
+        const optionsAnimations = {
+            animation: false
+        }
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: optionsAnimations
+        })
+
+        //Listen value temperature... 
+        socket.on('temperature', function(value) {
+            let length = data.labels.length
+            if (length >= 20) {
+                data.datasets[0].data.shift()
+                data.labels.shift()
+            }
+
+            data.labels.push(moment().format('HH:mm:ss'))
+            data.datasets[0].data.push(value)
+
+            chart.update()
+        })
+    </script>
+</body>
+
+</html>
