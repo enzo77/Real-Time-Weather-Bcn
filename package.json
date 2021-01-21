@@ -15,7 +15,7 @@
     "axios": "^0.19.2",
     "convert-units": "^2.3.4",
     "express": "^4.15.4",
-    "socket.io": "^2.0.3"
+    "socket.io": "^2.4.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
